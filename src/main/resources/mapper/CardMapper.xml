@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springbootbank.bank.dao.CardMapper">
+
+    <select id = "selectByPrimaryKey" resultType = "com.springbootbank.bank.entity.Card">
+        select user_id,card_id,card_number,card_password,card_money,is_deleted from card
+        where card_id = #{card_id}
+    </select>
+
+    <select id="selectByUserId" resultType="com.springbootbank.bank.entity.Card">
+        select user_id,card_id,card_number,card_password,card_money,is_deleted from card
+        where user_id = #{user_id}
+    </select>
+
+    <insert id = "insert" parameterType = "com.springbootbank.bank.entity.Card">
+            insert into card (user_id,card_number,card_password) values (
+            #{user_id},#{card_number},#{card_password})
+    </insert>
+
+    <update id = "update" parameterType = "com.springbootbank.bank.entity.Card">
+        update card
+        <set>
+            <if test = "user_id != null" >
+                user_id = #{user_id},
+            </if>
+            <if test = "card_number != null">
+                card_number = #{card_number},
+            </if>
+            <if test = "card_password != null" >
+                card_password = #{card_password},
+            </if>
+            <if test = "card_money != null" >
+                card_money = #{card_money},
+            </if>
+        </set>
+        where card_id = #{card_id}
+    </update>
+
+    <update id="delete">
+        update card set is_deleted = 1 where card_id = #{card_id}
+    </update>
+</mapper>

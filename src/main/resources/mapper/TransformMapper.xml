@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springbootbank.bank.dao.TransformMapper">
+
+    <select id = "selectAll" resultType = "com.springbootbank.bank.entity.Transform">
+        select card_id,transform_id,transform_type,transform_money,transform_date,is_deleted from transform
+        where card_id = #{card_id}
+    </select>
+
+    <insert id = "insert" parameterType = "com.springbootbank.bank.entity.Transform">
+            insert into transform (card_id,transform_type,transform_money,transform_date) values (
+            #{card_id},#{transform_type},#{transform_money},#{transform_date})
+    </insert>
+
+    <update id = "update" parameterType = "com.springbootbank.bank.entity.Transform">
+        update transform
+        <set>
+            <if test = "card_id != null" >
+                card_id = #{card_id},
+            </if>
+            <if test = "transform_type != null">
+                transform_type = #{transform_type},
+            </if>
+            <if test = "transform_money != null" >
+                transform_money = #{transform_money},
+            </if>
+            <if test = "transform_date != null" >
+                transform_date = #{transform_date},
+            </if>
+        </set>
+        where transform_id = #{transform_id}
+    </update>
+
+    <update id="delete">
+        update transform set is_deleted = 1 where transform_id = #{transform_id}
+    </update>
+</mapper>

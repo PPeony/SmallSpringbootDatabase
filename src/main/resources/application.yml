@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: springbootbank
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring?serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: 18842332832
+    platform: mysql
+
+
+server:
+  servlet:
+    context-path: /bank
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.springbootbank.bank.entity
+
+
